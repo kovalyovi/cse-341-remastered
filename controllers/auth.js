@@ -74,11 +74,6 @@ exports.postLogin = (req, res, next) => {
 
   User.findOne({ email: email })
     .then((user) => {
-      console.log("LOGIN");
-      console.log("USER");
-      console.log(user);
-      console.log("EMAIL");
-      console.log(req.body.email);
       if (!user) {
         return res.status(422).render("auth/login", {
           path: "/login",
@@ -128,9 +123,6 @@ exports.postLogin = (req, res, next) => {
 exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
-  console.log("SIGNUP");
-  console.log(email);
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -204,11 +196,6 @@ exports.postReset = (req, res, next) => {
     const token = buffer.toString("hex");
     User.findOne({ email: req.body.email })
       .then((user) => {
-        console.log("POST RESET");
-        console.log("USER");
-        console.log(user);
-        console.log("EMAIL");
-        console.log(req.body.email);
         if (!user) {
           req.flash("error", "No account with that email found.");
           return res.redirect("/reset");
